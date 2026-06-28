@@ -4,11 +4,83 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 8 - CSC 1101 Virtual Lab</title>
-<link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<style>
+:root{
+  --navy:#1F3A5F; --steel:#5B7794; --ink:#15212e; --muted:#5b6b7a;
+  --card:#eef2f6; --line:#d4dde6; --bg:#f7f9fb; --white:#fff;
+  --ok:#2E7D32; --bad:#B23B3B; --codebg:#1E2A38;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Calibri,'Segoe UI',Arial,sans-serif;color:var(--ink);
+  background:var(--bg);line-height:1.55}
+a{color:var(--navy)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header.site{background:var(--navy);color:#fff;padding:22px 0}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+header.site .brand b{font-family:Cambria,Georgia,serif;font-size:20px}
+header.site .kicker{letter-spacing:2px;font-size:11px;color:#AEC2D6;font-weight:bold}
+header.site nav a{color:#CADCFC;text-decoration:none;margin-left:18px;font-size:14px}
+header.site nav a:hover{text-decoration:underline}
+h1.page{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:30px;margin:26px 0 6px}
+.sub{color:var(--muted);margin:0 0 22px;font-size:16px}
+.kick{letter-spacing:2px;font-size:12px;font-weight:bold;color:var(--steel);margin-top:26px}
+h2{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:23px;margin:6px 0 12px}
+h3{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:18px;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0;
+  box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.card h3{margin-top:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}}
+.note{color:var(--muted);font-style:italic;font-size:14px}
+ul.clean{margin:8px 0;padding-left:20px}
+ul.clean li{margin:5px 0}
+.weekcard{display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;
+  text-decoration:none;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.06);transition:transform .08s}
+.weekcard:hover{transform:translateY(-2px)}
+.weekcard .wk{color:var(--steel);font-weight:bold;font-size:12px;letter-spacing:1px}
+.weekcard .tt{font-family:Cambria,Georgia,serif;color:var(--navy);font-size:17px;margin:4px 0}
+.weekcard .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;margin-top:6px}
+.badge.cpp{background:#e7eef7;color:var(--navy)}
+.badge.py{background:#e7f1ee;color:var(--ok)}
+.badge.soon{background:#eee;color:#888}
+/* code lab */
+.lab{margin:14px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.lab .bar{display:flex;align-items:center;justify-content:space-between;background:var(--navy);color:#fff;
+  padding:8px 12px;font-size:13px}
+.lab .bar .lang{font-weight:bold;letter-spacing:1px;color:#AEC2D6;font-size:11px}
+.lab .bar .btns button{font-family:inherit;font-size:13px;border:0;border-radius:6px;padding:6px 14px;
+  margin-left:8px;cursor:pointer}
+.btn-run{background:#3ea06a;color:#fff;font-weight:bold}
+.btn-run:hover{background:#34895a}
+.btn-copy{background:#3a4a5e;color:#fff}
+.btn-copy:hover{background:#46586e}
+textarea.code{width:100%;border:0;background:var(--codebg);color:#e7edf3;
+  font-family:'Courier New',Consolas,monospace;font-size:14px;line-height:1.5;padding:12px 14px;
+  display:block;resize:vertical;min-height:120px;white-space:pre;overflow:auto;tab-size:4;-moz-tab-size:4}
+textarea.code:focus{outline:2px solid #3ea06a;outline-offset:-2px}
+.lab .out{border-top:1px solid var(--line);background:#0f1620;color:#e7edf3;font-family:'Courier New',monospace;
+  font-size:13px;white-space:pre-wrap;padding:12px 14px;min-height:20px;display:none}
+.lab .out.show{display:block}
+.lab .out .err{color:#ff9b9b}
+.lab .out .muted{color:#8aa0b3}
+.walk{margin:8px 0 0;padding-left:0;list-style:none}
+.walk li{margin:6px 0;font-size:14px}
+.walk code{background:#eef2f6;border-radius:4px;padding:1px 5px;color:var(--navy);font-weight:bold}
+.tasks{counter-reset:t}
+.tasks .task{background:#f4f7fb;border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0}
+.tasks .task .n{display:inline-block;background:var(--navy);color:#fff;border-radius:50%;width:24px;height:24px;
+  text-align:center;line-height:24px;font-weight:bold;margin-right:8px;font-size:13px}
+table.ref{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+table.ref th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px}
+table.ref td{border:1px solid var(--line);padding:7px 10px}
+table.ref tr:nth-child(even) td{background:#f4f6f8}
+.pill{display:inline-block;background:#e7eef7;color:var(--navy);border-radius:20px;padding:2px 10px;font-size:12px;font-weight:bold}
+footer.site{margin-top:40px;background:var(--navy);color:#AEC2D6;padding:18px 0;font-size:13px}
+.backlink{display:inline-block;margin:18px 0 0;font-size:14px;text-decoration:none;color:var(--steel);font-weight:bold}
+
+</style>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
 </head>
 <body>
@@ -34,7 +106,7 @@
   <div class="lab" data-lang="python" data-expect="Power = 6.0 W">
     <div class="bar"><span class="lang">PYTHON</span>
       <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
-    <textarea class="code">voltage = 12.0     # change me
+    <textarea class="code" rows="5">voltage = 12.0     # change me
 current = 0.5      # change me
 power = voltage * current
 print(f"Power = {power} W")</textarea>
@@ -52,7 +124,7 @@ print(f"Power = {power} W")</textarea>
   <div class="lab" data-lang="python" data-expect="7 / 2  = 3.5&#10;7 // 2 = 3&#10;7 % 2  = 1&#10;2 ** 10 = 1024">
     <div class="bar"><span class="lang">PYTHON</span>
       <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
-    <textarea class="code">print("7 / 2  =", 7 / 2)    # true division -> 3.5
+    <textarea class="code" rows="5">print("7 / 2  =", 7 / 2)    # true division -> 3.5
 print("7 // 2 =", 7 // 2)   # floor division -> 3
 print("7 % 2  =", 7 % 2)    # remainder -> 1
 print("2 ** 10 =", 2 ** 10) # power -> 1024</textarea>
@@ -66,7 +138,7 @@ print("2 ** 10 =", 2 ** 10) # power -> 1024</textarea>
   <div class="lab" data-lang="python" data-expect="212.00 F, 373.15 K">
     <div class="bar"><span class="lang">PYTHON</span>
       <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
-    <textarea class="code">c = 100                 # degrees Celsius - change me
+    <textarea class="code" rows="5">c = 100                 # degrees Celsius - change me
 f = c * 9/5 + 32
 k = c + 273.15
 print(f"{f:.2f} F, {k:.2f} K")</textarea>

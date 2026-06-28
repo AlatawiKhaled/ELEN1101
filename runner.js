@@ -12,22 +12,26 @@
       var lang = lab.getAttribute("data-lang");
       var ta = lab.querySelector("textarea.code");
       if(!ta) return;
-      var mode = lang==="python" ? "python" : "text/x-c++src";
-      var cm = CodeMirror.fromTextArea(ta, {
-        mode: mode, theme:"material-darker", lineNumbers:true,
-        indentUnit:4, tabSize:4, viewportMargin:Infinity
+      // auto-grow the textarea to fit its content
+      function grow(){ ta.style.height="auto"; ta.style.height=(ta.scrollHeight+4)+"px"; }
+      ta.addEventListener("input", grow); setTimeout(grow, 0);
+      // allow Tab to insert spaces instead of leaving the box
+      ta.addEventListener("keydown", function(e){
+        if(e.key==="Tab"){ e.preventDefault();
+          var st=ta.selectionStart, en=ta.selectionEnd;
+          ta.value=ta.value.slice(0,st)+"    "+ta.value.slice(en);
+          ta.selectionStart=ta.selectionEnd=st+4; }
       });
       var out = lab.querySelector(".out");
       var runBtn = lab.querySelector(".btn-run");
       if(runBtn) runBtn.addEventListener("click", function(){
-        run(lang, cm.getValue(), out, lab);
+        run(lang, ta.value, out, lab);
       });
       var copyBtn = lab.querySelector(".btn-copy");
       if(copyBtn) copyBtn.addEventListener("click", function(){
-        navigator.clipboard.writeText(cm.getValue());
+        try{ navigator.clipboard.writeText(ta.value); }catch(e){ ta.select(); document.execCommand("copy"); }
         copyBtn.textContent="Copied!"; setTimeout(function(){copyBtn.textContent="Copy";},1200);
       });
-      editors.push(cm);
     });
   });
 
