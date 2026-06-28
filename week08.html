@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 8 - CSC 1101 Virtual Lab</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <div class="brand"><div class="kicker">CSC 1101 VIRTUAL LAB</div><b>Week 8 &mdash; Python</b></div>
+  <nav><a href="index.html">Home</a><a href="week01.html">&larr; Week 1</a></nav>
+</div></header>
+
+<div class="wrap">
+  <h1 class="page">Week 8 &mdash; Introduction to Python</h1>
+  <p class="sub">Python keeps every idea from C++ but is simpler to write. Edit and run each example below.</p>
+
+  <div class="kick">BIG PICTURE</div>
+  <div class="card">
+    <h3>Same ideas, simpler language</h3>
+    <p>You already know how to think like a programmer. Python keeps variables, expressions, conditionals, loops and functions &mdash; but with simpler syntax: <b>no type declarations, no semicolons, no braces</b>. Indentation (the spaces at the start of a line) defines the structure instead.</p>
+  </div>
+
+  <div class="kick">YOUR FIRST PYTHON</div>
+  <h2>A power calculator</h2>
+  <p>Press <b>Run</b> (the first run loads Python &mdash; please wait a few seconds). Then change the two numbers and run again.</p>
+
+  <div class="lab" data-lang="python" data-expect="Power = 6.0 W">
+    <div class="bar"><span class="lang">PYTHON</span>
+      <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
+    <textarea class="code">voltage = 12.0     # change me
+current = 0.5      # change me
+power = voltage * current
+print(f"Power = {power} W")</textarea>
+    <div class="out"></div>
+  </div>
+  <ul class="walk">
+    <li>No type is declared &mdash; <code>power</code> becomes a number automatically.</li>
+    <li><code>f"...{power}..."</code> is an f-string: it drops the value of <code>power</code> into the text.</li>
+  </ul>
+
+  <div class="kick">A KEY DIFFERENCE FROM C++</div>
+  <h2>Division in Python</h2>
+  <p>In Python, <code>/</code> always gives a real answer (no integer-division trap). Use <code>//</code> for whole-number division. Run it and see.</p>
+
+  <div class="lab" data-lang="python" data-expect="7 / 2  = 3.5&#10;7 // 2 = 3&#10;7 % 2  = 1&#10;2 ** 10 = 1024">
+    <div class="bar"><span class="lang">PYTHON</span>
+      <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
+    <textarea class="code">print("7 / 2  =", 7 / 2)    # true division -> 3.5
+print("7 // 2 =", 7 // 2)   # floor division -> 3
+print("7 % 2  =", 7 % 2)    # remainder -> 1
+print("2 ** 10 =", 2 ** 10) # power -> 1024</textarea>
+    <div class="out"></div>
+  </div>
+
+  <div class="kick">A SMALL FORMULA</div>
+  <h2>Temperature conversion</h2>
+  <p>Convert Celsius to Fahrenheit and Kelvin, shown to two decimals. Change the value of <code>c</code> and run again.</p>
+
+  <div class="lab" data-lang="python" data-expect="212.00 F, 373.15 K">
+    <div class="bar"><span class="lang">PYTHON</span>
+      <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
+    <textarea class="code">c = 100                 # degrees Celsius - change me
+f = c * 9/5 + 32
+k = c + 273.15
+print(f"{f:.2f} F, {k:.2f} K")</textarea>
+    <div class="out"></div>
+  </div>
+
+  <div class="kick">IF SOMETHING GOES WRONG</div>
+  <div class="card"><h3>Troubleshooting</h3>
+  <table class="ref"><tr><th>Message</th><th>What it means</th></tr>
+    <tr><td><code>IndentationError</code></td><td>Your spaces do not line up. Use 4 spaces per level, consistently.</td></tr>
+    <tr><td><code>NameError</code></td><td>A typo in a name, or you used a variable before creating it.</td></tr>
+    <tr><td><code>SyntaxError</code></td><td>Check for a missing colon <code>:</code> or a missing quote.</td></tr>
+  </table></div>
+
+  <div class="kick">YOUR TURN</div>
+  <h2>Lab tasks</h2>
+  <div class="tasks">
+    <div class="task"><span class="n">1</span> Change the power calculator to use voltage 5 and current 2, and predict the answer before running.</div>
+    <div class="task"><span class="n">2</span> Print the sum, product and true division of two numbers of your choice.</div>
+    <div class="task"><span class="n">3</span> Convert 37 degrees Celsius and check that Fahrenheit is 98.60.</div>
+    <div class="task"><span class="n">4</span> Read a length and width as variables and print the area of a rectangle.</div>
+    <div class="task"><span class="n">5</span> Print a friendly greeting using an f-string that includes your name.</div>
+  </div>
+  <div class="card"><h3>Before you submit</h3>
+    <p>Save each program, capture a screenshot of its output, and upload your code and screenshots to Blackboard.</p>
+  </div>
+
+  <a class="backlink" href="index.html">&larr; Back to all weeks</a>
+</div>
+
+<footer class="site"><div class="wrap">CSC 1101 &mdash; University of Tabuk &bull; Virtual Lab prototype</div></footer>
+<script src="assets/runner.js"></script>
+</body>
+</html>

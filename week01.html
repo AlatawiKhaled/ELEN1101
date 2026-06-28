@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 - CSC 1101 Virtual Lab</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/JSCPP/dist/JSCPP.es5.min.js"></script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <div class="brand"><div class="kicker">CSC 1101 VIRTUAL LAB</div><b>Week 1 &mdash; C++</b></div>
+  <nav><a href="index.html">Home</a><a href="week08.html">Week 8 &rarr;</a></nav>
+</div></header>
+
+<div class="wrap">
+  <h1 class="page">Week 1 &mdash; Problem Solving, Algorithms &amp; Setup</h1>
+  <p class="sub">Your first programs in C++. Read each idea, then run the code yourself.</p>
+
+  <div class="kick">START HERE</div>
+  <div class="card">
+    <h3>No experience needed</h3>
+    <p>This course assumes you have <b>never written code before</b>. We start from the very beginning. You do not need to be "good with computers" &mdash; just willing to follow clear steps, like working through a maths problem. Mistakes are normal; finding and fixing them is part of learning.</p>
+  </div>
+
+  <div class="kick">CONCEPT</div>
+  <h2>What exactly is a program?</h2>
+  <p>A computer does nothing on its own &mdash; it only follows instructions. A <b>program</b> is a precise, step-by-step list of instructions that turns some input into a useful result. You must describe the solution in such exact detail that a machine, which has no common sense, can carry it out without guessing.</p>
+  <div class="grid3">
+    <div class="card"><h3>Instructions</h3><p>Each line is a command the computer obeys in order, top to bottom.</p></div>
+    <div class="card"><h3>Input &rarr; Process &rarr; Output</h3><p>Almost every program reads data in, transforms it, and produces a result out.</p></div>
+    <div class="card"><h3>No guessing</h3><p>The computer does exactly what you write &mdash; not what you meant. Precision is everything.</p></div>
+  </div>
+
+  <div class="kick">YOUR FIRST PROGRAM</div>
+  <h2>Hello, Engineers! &mdash; run it now</h2>
+  <p>Press <b>Run</b>. The program should print a greeting. Then change the words inside the quotes and run it again.</p>
+
+  <div class="lab" data-lang="cpp" data-expect="Hello, Engineers!">
+    <div class="bar"><span class="lang">C++</span>
+      <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
+    <textarea class="code">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hello, Engineers!" &lt;&lt; endl;
+    return 0;
+}</textarea>
+    <div class="out"></div>
+  </div>
+
+  <ul class="walk">
+    <li><code>#include &lt;iostream&gt;</code> brings in the input/output tools so we can use <code>cout</code>.</li>
+    <li><code>int main()</code> is where every C++ program starts.</li>
+    <li><code>cout &lt;&lt; "..."</code> prints text to the screen; <code>endl</code> moves to a new line.</li>
+    <li>Every statement ends with a semicolon <code>;</code> &mdash; forgetting it is the most common first error.</li>
+  </ul>
+
+  <div class="kick">A REAL CALCULATION</div>
+  <h2>Average of five temperatures</h2>
+  <p>This program adds up five readings and divides by how many there are. Press <b>Run</b>, then try changing the numbers.</p>
+
+  <div class="lab" data-lang="cpp" data-expect="Average = 24.8">
+    <div class="bar"><span class="lang">C++</span>
+      <span class="btns"><button class="btn-copy">Copy</button><button class="btn-run">Run</button></span></div>
+    <textarea class="code">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double temps[5] = {22, 25, 19, 30, 28};
+    double sum = 0;
+    for (int i = 0; i &lt; 5; i++) {
+        sum += temps[i];     // add each reading
+    }
+    cout &lt;&lt; "Average = " &lt;&lt; sum / 5 &lt;&lt; endl;
+    return 0;
+}</textarea>
+    <div class="out"></div>
+  </div>
+  <p class="note">By hand: (22+25+19+30+28) / 5 = 124 / 5 = 24.8.</p>
+
+  <div class="kick">PLANNING BEFORE CODE</div>
+  <h2>Pseudocode: a plan in plain steps</h2>
+  <p>Before writing code, engineers write a <b>plan</b> in plain steps (pseudocode). This is not real code &mdash; it is for thinking. Here is the plan for an average:</p>
+  <div class="lab" data-lang="cpp" data-expect="(this is a plan, not runnable code)">
+    <div class="bar"><span class="lang">PSEUDOCODE</span>
+      <span class="btns"><button class="btn-copy">Copy</button></span></div>
+    <textarea class="code">READ how many numbers there are (N)
+SET total = 0
+REPEAT N times:
+    READ the next number
+    ADD it to total
+IF N is more than 0:
+    average = total / N
+    PRINT average
+ELSE:
+    PRINT "No data"</textarea>
+    <div class="out"></div>
+  </div>
+
+  <div class="kick">IF SOMETHING GOES WRONG</div>
+  <div class="card"><h3>Troubleshooting</h3>
+  <table class="ref"><tr><th>Message</th><th>What it means</th></tr>
+    <tr><td><code>expected ';'</code></td><td>You forgot a semicolon at the end of a line &mdash; add it where the error points.</td></tr>
+    <tr><td><code>was not declared</code></td><td>A typo in a name, or a missing <code>#include</code> at the top.</td></tr>
+    <tr><td>Runs, wrong answer</td><td>Check for integer division &mdash; make at least one value a <code>double</code>.</td></tr>
+  </table></div>
+
+  <div class="kick">YOUR TURN</div>
+  <h2>Lab tasks</h2>
+  <div class="tasks">
+    <div class="task"><span class="n">1</span> Change the Hello program to also print your name and your engineering major on a second line.</div>
+    <div class="task"><span class="n">2</span> In the average program, change the five numbers to your own and predict the answer before you run it.</div>
+    <div class="task"><span class="n">3</span> Make the average program use six numbers instead of five (remember to change the array size and the divisor).</div>
+    <div class="task"><span class="n">4</span> Write pseudocode that reads two numbers and prints the larger one.</div>
+    <div class="task"><span class="n">5</span> Add a line that also prints the total (the sum) as well as the average.</div>
+  </div>
+  <div class="card"><h3>Before you submit</h3>
+    <p>Save each program, capture a screenshot of its output, and upload your code and screenshots to Blackboard.</p>
+  </div>
+
+  <a class="backlink" href="index.html">&larr; Back to all weeks</a>
+</div>
+
+<footer class="site"><div class="wrap">CSC 1101 &mdash; University of Tabuk &bull; Virtual Lab prototype</div></footer>
+<script src="assets/runner.js"></script>
+</body>
+</html>
